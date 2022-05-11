@@ -3162,10 +3162,13 @@ element input {
                         <rewrite from="Grassland" to="grass"/>
                         <rewrite from="ProtectedUnmanagedPasture" to="pasture (other)"/>
                         <rewrite from="FodderHerb" to="crops"/>
+                        <rewrite from="FodderHerbC4" to="crops"/>
                         <rewrite from="MiscCrop" to="crops"/>
+                        <rewrite from="MiscCropTree" to="crops"/>
                         <rewrite from="PalmFruit" to="crops"/>
                         <rewrite from="FiberCrop" to="crops"/>
                         <rewrite from="OtherGrain" to="crops"/>
+                        <rewrite from="OtherGrainC4" to="crops"/>
                         <rewrite from="FodderGrass" to="crops"/>
                         <rewrite from="ProtectedGrassland" to="grass"/>
                         <rewrite from="ProtectedUnmanagedForest" to="forest (unmanaged)"/>
@@ -3176,14 +3179,19 @@ element input {
                         <rewrite from="RockIceDesert" to="rock and desert"/>
                         <rewrite from="RootTuber" to="crops"/>
                         <rewrite from="Corn" to="crops"/>
+                        <rewrite from="CornC4" to="crops"/>
                         <rewrite from="Fruits" to="crops"/>
+                        <rewrite from="FruitsTree" to="crops"/>
                         <rewrite from="Legumes" to="crops"/>
                         <rewrite from="NutsSeeds" to="crops"/>
+                        <rewrite from="NutsSeedsTree" to="crops"/>
                         <rewrite from="Soybean" to="crops"/>
                         <rewrite from="Vegetables" to="crops"/>
                         <rewrite from="OilCrop" to="crops"/>
+                        <rewrite from="OilCropTree" to="crops"/>
                         <rewrite from="ProtectedShrubland" to="shrubs"/>
                         <rewrite from="SugarCrop" to="crops"/>
+                        <rewrite from="SugarCropC4" to="crops"/>
                         <rewrite from="UnmanagedForest" to="forest (unmanaged)"/>
                         <rewrite from="Pasture" to="pasture (grazed)"/>
                         <rewrite from="Forest" to="forest (managed)"/>
@@ -3674,25 +3682,25 @@ element input {
 			<supplyDemandQuery title="food demand prices">
 				<axis1 name="input">input[@name]</axis1>
 				<axis2 name="Year">price-paid[@vintage]</axis2>
-				<xPath buildList="true" dataName="price" group="false" sumAll="false">gcam-consumer[@name='FoodDemand']//*[@type='input']/price-paid/node()</xPath>
+				<xPath buildList="true" dataName="price" group="false" sumAll="false">gcam-consumer[contains(@name,'FoodDemand')]//*[@type='input']/price-paid/node()</xPath>
 				<comments/>
 			</supplyDemandQuery>
 			<supplyDemandQuery title="food demand">
 				<axis1 name="input">input[@name]</axis1>
 				<axis2 name="Year">demand-physical[@vintage]</axis2>
-				<xPath buildList="true" dataName="demand" group="false" sumAll="false">gcam-consumer[@name='FoodDemand']//*[@type='input']/demand-physical/node()</xPath>
+				<xPath buildList="true" dataName="demand" group="false" sumAll="false">gcam-consumer[contains(@name,'FoodDemand')]//*[@type='input']/demand-physical/node()</xPath>
 				<comments/>
 			</supplyDemandQuery>
 			<supplyDemandQuery title="food demand per capita">
 				<axis1 name="input">input[@name]</axis1>
 				<axis2 name="Year">demand-percap[@year]</axis2>
-				<xPath buildList="true" dataName="demand per cap" group="false" sumAll="false">gcam-consumer[@name='FoodDemand']//*[@type='input']/demand-percap/node()</xPath>
+				<xPath buildList="true" dataName="demand per cap" group="false" sumAll="false">gcam-consumer[contains(@name,'FoodDemand')]//*[@type='input']/demand-percap/node()</xPath>
 				<comments/>
 			</supplyDemandQuery>
 			<supplyDemandQuery title="food demand regional bias">
 				<axis1 name="input">input[@name]</axis1>
 				<axis2 name="Year">regional-bias[@year]</axis2>
-				<xPath buildList="true" dataName="regional-bias" group="false" sumAll="false">gcam-consumer[@name='FoodDemand']//*[@type='input']/regional-bias/node()</xPath>
+				<xPath buildList="true" dataName="regional-bias" group="false" sumAll="false">gcam-consumer[contains(@name,'FoodDemand')]//*[@type='input']/regional-bias/node()</xPath>
 				<comments/>
 			</supplyDemandQuery>
         </queryGroup>
@@ -4188,6 +4196,26 @@ local:generate-sector-output-coefs(remove($inputNameQueue, 1), $currTree, $coefs
             <xPath buildList="true" dataName="gdp-per-capita-ppp" group="false" sumAll="false">GDP/gdp-per-capita-ppp/text()</xPath>
             <comments/>
         </gdpQueryBuilder>
+        <demographicsQuery title = "subregional population">
+            <axis1 name = "region">region</axis1>
+            <axis2 name = "Year">subregional-population</axis2>
+            <xPath
+                buildList = "true"
+                dataName = "subregional-population"
+                group = "false"
+                sumAll = "false">gcam-consumer[contains(@name,'FoodDemand')]/subregional-population/node()</xPath>
+            <comments/>
+        </demographicsQuery>
+        <demographicsQuery title = "subregional income">
+            <axis1 name = "region">region</axis1>
+            <axis2 name = "Year">subregional-percapita-income</axis2>
+            <xPath
+                buildList = "true"
+                dataName = "subregional-percapita-income"
+                group = "false"
+                sumAll = "false">gcam-consumer[contains(@name,'FoodDemand')]/subregional-percapita-income/node()</xPath>
+            <comments/>
+        </demographicsQuery>
     </queryGroup>
     <queryGroup name="policy">
         <marketQuery title="CO2 prices">
