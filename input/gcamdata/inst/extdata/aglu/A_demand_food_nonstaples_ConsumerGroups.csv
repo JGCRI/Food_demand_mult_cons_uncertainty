@@ -1,0 +1,18 @@
+# File: A_demand_food_nonstaples_ConsumerGroups.csv
+# Title: Final demand (gcam-consumer) info
+# Units: Various
+# Description: Info related to gcam-consumer objects
+# Source: RYC STW and RPL analysis
+# Column types: cccnnn
+# ----------
+gcam.consumer,nodeInput,non.staples.food.demand.input,scale.param,self.price.elasticity,income.elasticity
+FoodDemand_Group1,FoodDemand,FoodDemand_NonStaples,1.297285033,-0.080569246,0.886000498
+FoodDemand_Group2,FoodDemand,FoodDemand_NonStaples,1.297285033,-0.080569246,0.886000498
+FoodDemand_Group3,FoodDemand,FoodDemand_NonStaples,1.297285033,-0.080569246,0.886000498
+FoodDemand_Group4,FoodDemand,FoodDemand_NonStaples,1.297285033,-0.080569246,0.886000498
+FoodDemand_Group5,FoodDemand,FoodDemand_NonStaples,1.297285033,-0.080569246,0.886000498
+FoodDemand_Group6,FoodDemand,FoodDemand_NonStaples,1.297285033,-0.080569246,0.886000498
+FoodDemand_Group7,FoodDemand,FoodDemand_NonStaples,1.297285033,-0.080569246,0.886000498
+FoodDemand_Group8,FoodDemand,FoodDemand_NonStaples,1.297285033,-0.080569246,0.886000498
+FoodDemand_Group9,FoodDemand,FoodDemand_NonStaples,1.297285033,-0.080569246,0.886000498
+FoodDemand_Group10,FoodDemand,FoodDemand_NonStaples,1.297285033,-0.080569246,0.886000498
