@@ -77,6 +77,8 @@ void FoodDemandInput::completeInit( const string& aRegionName,
     // and so should be the name used in dependency tracking.
     MarketDependencyFinder* depFinder = scenario->getMarketplace()->getDependencyFinder();
     depFinder->addDependency( aTechName, aRegionName, mName, aRegionName );
+
+    mSectorName = aTechName;
     
     // Set up trial share markets
     string trialShareMarketName = SectorUtils::getTrialMarketName( getTrialShareMarketName() );
@@ -302,7 +304,7 @@ Value FoodDemandInput::getSubregionalIncome() const {
  * \brief Generates an appropriate name to use for the trial share market name.
  */
 std::string FoodDemandInput::getTrialShareMarketName() const {
-    return mName + "-budget-fraction";
+    return mName + mSectorName + "-budget-fraction";
 }
 
 /*!
