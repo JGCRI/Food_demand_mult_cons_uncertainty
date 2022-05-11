@@ -281,7 +281,7 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       left_join(L203.ag_an_kcalg_R_C_Y, by = c("region", "technology" = "GCAM_commodity", "year")) %>%
       mutate(efficiency = round(value, aglu.DIGITS_CALOUTPUT)) %>%
       # For each region / commodity,
-      group_by(region, subsector, subsector0, stub.technology) %>%
+      group_by(region, subsector0, subsector, technology) %>%
       # Calorie content are held constant in the future, so set value for future years at the final base year value
       mutate(efficiency = replace(efficiency, year > max(MODEL_BASE_YEARS), efficiency[year == max(MODEL_BASE_YEARS)])) %>%
       ungroup() %>%
@@ -313,10 +313,11 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
 
     # Fuel preference elasticity
     # Build L203.FuelPrefElast_ssp1: Fuel preference elasticities for meat in SSP1
-    names_FuelPrefElasticity <- c("region", "supplysector", "subsector", "year.fillout", "fuelprefElasticity")
+    #Keep the nesting subsector
+    names_FuelPrefElast_nest <- c("region", "supplysector", "subsector0", "subsector",  "year.fillout", "fuelprefElasticity")
     A_fuelprefElasticity_ssp1 %>%
       mutate(year.fillout = min(MODEL_BASE_YEARS)) %>%
-      write_to_all_regions(names_FuelPrefElasticity, GCAM_region_names = GCAM_region_names) %>%
+      write_to_all_regions(names_FuelPrefElast_nest, GCAM_region_names = GCAM_region_names) %>%
       filter(!region %in% aglu.NO_AGLU_REGIONS) ->           # Remove any regions for which agriculture and land use are not modeled
       L203.FuelPrefElast_ssp1
 
@@ -445,7 +446,8 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       add_comments("Remove any regions for which agriculture and land use are not modeled") %>%
       add_legacy_name("L203.Supplysector_demand") %>%
       add_precursors("common/GCAM_region_names",
-                     "aglu/A_demand_supplysector") ->
+                     "aglu/A_demand_supplysector",
+                     "aglu/A_demand_nesting_subsector") ->
       L203.NestingSubsectorAll_demand_food
 
     L203.SubsectorAll_demand_food %>%

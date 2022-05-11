@@ -3189,6 +3189,8 @@ element input {
                         <rewrite from="Vegetables" to="crops"/>
                         <rewrite from="OilCrop" to="crops"/>
                         <rewrite from="OilCropTree" to="crops"/>
+                        <rewrite from="OilPalm" to="crops"/>
+                        <rewrite from="OilPalmTree" to="crops"/>
                         <rewrite from="ProtectedShrubland" to="shrubs"/>
                         <rewrite from="SugarCrop" to="crops"/>
                         <rewrite from="SugarCropC4" to="crops"/>
