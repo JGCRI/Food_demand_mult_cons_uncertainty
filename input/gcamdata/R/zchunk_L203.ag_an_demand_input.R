@@ -29,12 +29,16 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
     return(c(FILE = "common/GCAM_region_names",
              FILE = "aglu/A_demand_food_staples",
              FILE = "aglu/A_demand_food_nonstaples",
+             FILE = "aglu/A_demand_food_staples_ConsumerGroups",
+             FILE = "aglu/A_demand_food_nonstaples_ConsumerGroups",
+             FILE = "aglu/A_demand_food_income_pop_shares_ConsumerGroups",
              FILE = "aglu/A_demand_supplysector",
              FILE = "aglu/A_demand_nesting_subsector",
              FILE = "aglu/A_demand_subsector",
              FILE = "aglu/A_demand_technology",
              FILE = "aglu/A_fuelprefElasticity_ssp1",
              FILE = "aglu/A_diet_bias",
+             FILE = "aglu/A_demand_food_base_service_ConsumerGroups",
              "L101.ag_Food_Pcal_R_C_Y",
              "L101.ag_kcalg_R_C_Y",
              "L105.an_Food_Pcal_R_C_Y",
@@ -51,13 +55,19 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
              "L203.StubTech_demand_food",
              "L203.StubTech_demand_nonfood",
              "L203.SubregionalShares",
+             "L203.SubregionalShares_ConsumerGroups",
              "L203.DemandFunction_food",
+             "L203.DemandFunction_food_ConsumerGroups",
              "L203.DemandStapleParams",
              "L203.DemandNonStapleParams",
+             "L203.DemandStapleParams_ConsumerGroups",
+             "L203.DemandNonStapleParams_ConsumerGroups",
              "L203.DemandStapleRegBias",
              "L203.DemandNonStapleRegBias",
              "L203.StapleBaseService",
              "L203.NonStapleBaseService",
+             "L203.StapleBaseService_ConsumerGroups",
+             "L203.NonStapleBaseService_ConsumerGroups",
              "L203.GlobalTechCoef_demand",
              "L203.GlobalTechShrwt_demand",
              "L203.StubTechProd_food",
@@ -98,6 +108,14 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
     L109.ag_ALL_Mt_R_C_Y <- get_data(all_data, "L109.ag_ALL_Mt_R_C_Y")
     L109.an_ALL_Mt_R_C_Y <- get_data(all_data, "L109.an_ALL_Mt_R_C_Y")
     L110.For_ALL_bm3_R_Y <- get_data(all_data, "L110.For_ALL_bm3_R_Y")
+
+    # Food demand parameters for multiple consumers
+    A_demand_food_staples_ConsumerGroups <- get_data(all_data, "aglu/A_demand_food_staples_ConsumerGroups", strip_attributes = TRUE)
+    A_demand_food_nonstaples_ConsumerGroups <- get_data(all_data, "aglu/A_demand_food_nonstaples_ConsumerGroups", strip_attributes = TRUE)
+    A_demand_food_income_pop_shares_ConsumerGroups <- get_data(all_data, "aglu/A_demand_food_income_pop_shares_ConsumerGroups", strip_attributes = TRUE)
+
+    # Food Demand calibration values for multiple consumers
+    A_demand_food_base_service_ConsumerGroups <- get_data(all_data, "aglu/A_demand_food_base_service_ConsumerGroups", strip_attributes = TRUE)
 
     # Build L203.Supplysector_demand: generic info for demand sectors by region
     A_demand_supplysector %>%
@@ -251,7 +269,7 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
     # Build L203.StubCalorieContent:
     # calorie content of food crops (incl secondary products) and meat commodities
     L101.ag_kcalg_R_C_Y %>%
-      # Combine the weigted average caloric content of crop and meat products
+      # Combine the weighted average caloric content of crop and meat products
       bind_rows(L105.an_kcalg_R_C_Y) %>%
       filter(year %in% MODEL_BASE_YEARS) %>%
       left_join(GCAM_region_names, by = "GCAM_region_ID") ->
@@ -263,7 +281,7 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       left_join(L203.ag_an_kcalg_R_C_Y, by = c("region", "technology" = "GCAM_commodity", "year")) %>%
       mutate(efficiency = round(value, aglu.DIGITS_CALOUTPUT)) %>%
       # For each region / commodity,
-      group_by(region, subsector) %>%
+      group_by(region, subsector, subsector0, stub.technology) %>%
       # Calorie content are held constant in the future, so set value for future years at the final base year value
       mutate(efficiency = replace(efficiency, year > max(MODEL_BASE_YEARS), efficiency[year == max(MODEL_BASE_YEARS)])) %>%
       ungroup() %>%
@@ -320,8 +338,15 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
 
     # FOOD DEMAND MODEL
     # Sub-regional population and income shares can be used to sub-divide a region's consumers into classes (e.g., by income
-    # group, urban/rural, etc). Shares are required to be read in, but as no sub-divisions are currently used, the shares
-    # in all regions are 1.
+    # group, urban/rural, etc)
+    # Get income and population shares for Multiple Consumers
+    L203.SubregionalShares_ConsumerGroups <- A_demand_food_income_pop_shares_ConsumerGroups %>%
+      rename(subregional.population.share.year = year) %>%
+      mutate(subregional.income.share.year = subregional.population.share.year) %>%
+      filter(!region %in% aglu.NO_AGLU_REGIONS) %>%
+      select(LEVEL2_DATA_NAMES[["SubregionalShares_Year"]])
+
+    # Single consumer
     L203.SubregionalShares <- A_demand_food_staples %>%
       select(gcam.consumer, nodeInput) %>%
       mutate(pop.year.fillout = min(MODEL_BASE_YEARS),
@@ -331,6 +356,7 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       write_to_all_regions(LEVEL2_DATA_NAMES[["SubregionalShares"]], GCAM_region_names = GCAM_region_names) %>%
       filter(!region %in% aglu.NO_AGLU_REGIONS)
 
+    # ONE CONSUMER
     L203.DemandFunction_food <- A_demand_food_staples %>%
       write_to_all_regions(LEVEL2_DATA_NAMES[["DemandFunction_food"]], GCAM_region_names = GCAM_region_names) %>%
       filter(!region %in% aglu.NO_AGLU_REGIONS)
@@ -340,6 +366,19 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       filter(!region %in% aglu.NO_AGLU_REGIONS)
 
     L203.DemandNonStapleParams <- A_demand_food_nonstaples %>%
+      write_to_all_regions(LEVEL2_DATA_NAMES[["DemandNonStapleParams"]], GCAM_region_names = GCAM_region_names) %>%
+      filter(!region %in% aglu.NO_AGLU_REGIONS)
+
+    # MULTIPLE CONSUMERS
+    L203.DemandFunction_food_ConsumerGroups <- A_demand_food_staples_ConsumerGroups %>%
+      write_to_all_regions(LEVEL2_DATA_NAMES[["DemandFunction_food"]], GCAM_region_names = GCAM_region_names) %>%
+      filter(!region %in% aglu.NO_AGLU_REGIONS)
+
+    L203.DemandStapleParams_ConsumerGroups <- A_demand_food_staples_ConsumerGroups %>%
+      write_to_all_regions(LEVEL2_DATA_NAMES[["DemandStapleParams"]], GCAM_region_names = GCAM_region_names) %>%
+      filter(!region %in% aglu.NO_AGLU_REGIONS)
+
+    L203.DemandNonStapleParams_ConsumerGroups <- A_demand_food_nonstaples_ConsumerGroups %>%
       write_to_all_regions(LEVEL2_DATA_NAMES[["DemandNonStapleParams"]], GCAM_region_names = GCAM_region_names) %>%
       filter(!region %in% aglu.NO_AGLU_REGIONS)
 
@@ -359,7 +398,6 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       left_join_error_no_match(A_diet_bias,
                                by = c(non.staples.food.demand.input = "demand_type")) %>%
       select(LEVEL2_DATA_NAMES[["DemandNonStapleRegBias"]])
-      #select(c("region", "gcam.consumer", "nodeInput", "non.staples.food.demand.input", "regional.bias.year", "regional.bias"))
     } else {
       # no convergence values, just return an empty tibble
       L203.DemandNonStapleRegBias <- as_tibble(sapply(LEVEL2_DATA_NAMES[['DemandNonStapleRegBias']], function(d) {character()}))
@@ -370,6 +408,13 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       summarise(base.service = sum(calOutputValue)) %>%
       ungroup()
 
+    # Read in base service for consumer groups, calculated with ambrosia outside of gcamdata
+    L203.StapleBaseService_ConsumerGroups <- filter(A_demand_food_base_service_ConsumerGroups, input == "FoodDemand_Staples") %>%
+      rename(staples.food.demand.input = input)
+    L203.NonStapleBaseService_ConsumerGroups <- filter(A_demand_food_base_service_ConsumerGroups, input == "FoodDemand_NonStaples") %>%
+      rename(non.staples.food.demand.input = input)
+
+    # Calculate base service for single consumer
     L203.StapleBaseService <- filter(L203.Demand, supplysector %in% A_demand_food_staples$staples.food.demand.input) %>%
       rename(staples.food.demand.input = supplysector) %>%
       left_join_error_no_match(select(L203.DemandStapleParams, region, gcam.consumer, nodeInput, staples.food.demand.input),
@@ -586,12 +631,26 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       add_precursors("aglu/A_demand_food_staples") ->
       L203.SubregionalShares
 
+    L203.SubregionalShares_ConsumerGroups %>%
+      add_title("Subregional population and income shares for food demand for multiple consumer groups") %>%
+      add_units("Unitless") %>%
+      add_comments("Names copied from assumptions") %>%
+      add_precursors("aglu/A_demand_food_income_pop_shares_ConsumerGroups") ->
+      L203.SubregionalShares_ConsumerGroups
+
     L203.DemandFunction_food %>%
       add_title("Demand function for food demand") %>%
       add_units("Unitless") %>%
       add_comments("Names copied from assumptions") %>%
       add_precursors("aglu/A_demand_food_staples") ->
       L203.DemandFunction_food
+
+    L203.DemandFunction_food_ConsumerGroups %>%
+      add_title("Demand function for food demand") %>%
+      add_units("Unitless") %>%
+      add_comments("Names copied from assumptions") %>%
+      add_precursors("aglu/A_demand_food_staples_5") ->
+      L203.DemandFunction_food_ConsumerGroups
 
     L203.DemandStapleParams %>%
       add_title("Food demand function parameters for staples") %>%
@@ -600,12 +659,26 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       add_precursors("aglu/A_demand_food_staples") ->
       L203.DemandStapleParams
 
+    L203.DemandStapleParams_ConsumerGroups %>%
+      add_title("Food demand function parameters for staples multiple consumers") %>%
+      add_units("Unitless") %>%
+      add_comments("Values copied from assumptions to all regions") %>%
+      add_precursors("aglu/A_demand_food_staples_ConsumerGroups") ->
+      L203.DemandStapleParams_ConsumerGroups
+
     L203.DemandNonStapleParams %>%
       add_title("Food demand function parameters for non-staples") %>%
       add_units("Unitless") %>%
       add_comments("Values copied from assumptions to all regions") %>%
       add_precursors("aglu/A_demand_food_nonstaples") ->
       L203.DemandNonStapleParams
+
+    L203.DemandNonStapleParams_ConsumerGroups %>%
+      add_title("Food demand function parameters for non-staples multiple consumers") %>%
+      add_units("Unitless") %>%
+      add_comments("Values copied from assumptions to all regions") %>%
+      add_precursors("aglu/A_demand_food_nonstaples_ConsumerGroups") ->
+      L203.DemandNonStapleParams_ConsumerGroups
 
     L203.DemandStapleRegBias %>%
       add_title("Food demand function regional bias parameters for staples") %>%
@@ -637,6 +710,22 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       add_precursors("aglu/A_demand_food_nonstaples") ->
       L203.NonStapleBaseService
 
+    L203.StapleBaseService_ConsumerGroups %>%
+      add_title("Calibrated food demand quantities by year (staples) for multiple consumer groups") %>%
+      add_units("PCal/yr") %>%
+      add_comments("FAO demand quantities multiplied by caloric content and added by demand category") %>%
+      same_precursors_as(L203.BaseService) %>%
+      add_precursors("aglu/A_demand_food_staples_ConsumerGroups", "aglu/A_demand_food_base_service_ConsumerGroups") ->
+      L203.StapleBaseService_ConsumerGroups
+
+    L203.NonStapleBaseService_ConsumerGroups %>%
+      add_title("Calibrated food demand quantities by year (non-staples) for multiple consumer groups") %>%
+      add_units("PCal/yr") %>%
+      add_comments("FAO demand quantities multiplied by caloric content and added by demand category") %>%
+      same_precursors_as(L203.BaseService) %>%
+      add_precursors("aglu/A_demand_food_nonstaples_ConsumerGroups", "aglu/A_demand_food_base_service_ConsumerGroups") ->
+      L203.NonStapleBaseService_ConsumerGroups
+
     return_data(L203.Supplysector_demand, L203.NestingSubsectorAll_demand_food, L203.SubsectorAll_demand_food,
                 L203.SubsectorAll_demand_nonfood, L203.StubTech_demand_food, L203.StubTech_demand_nonfood,
                 L203.GlobalTechCoef_demand, L203.GlobalTechShrwt_demand, L203.GlobalTechInterp_demand, L203.StubTechProd_food,
@@ -644,7 +733,9 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
                 L203.StubCalorieContent, L203.PerCapitaBased, L203.BaseService,
                 L203.IncomeElasticity, L203.PriceElasticity, L203.FuelPrefElast_ssp1,
                 L203.SubregionalShares, L203.DemandFunction_food, L203.DemandStapleParams, L203.DemandNonStapleParams,
-                L203.DemandStapleRegBias, L203.DemandNonStapleRegBias, L203.StapleBaseService, L203.NonStapleBaseService)
+                L203.DemandStapleRegBias, L203.DemandNonStapleRegBias, L203.StapleBaseService, L203.NonStapleBaseService,
+                L203.SubregionalShares_ConsumerGroups, L203.DemandFunction_food_ConsumerGroups, L203.DemandStapleParams_ConsumerGroups,
+                L203.DemandNonStapleParams_ConsumerGroups,L203.StapleBaseService_ConsumerGroups, L203.NonStapleBaseService_ConsumerGroups)
   } else {
     stop("Unknown command")
   }
