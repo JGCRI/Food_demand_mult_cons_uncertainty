@@ -134,6 +134,28 @@ void FoodDemandInput::initCalc( const string& aRegionName,
         // them otherwise.
         SectorUtils::fillMissingPeriodVectorInterpolated( mRegionalBias );
     }
+    
+    if(aPeriod > 0 && getXMLName() == NonStaplesFoodDemandInput::getXMLNameStatic()) {
+        // we are in non-staples
+        // "calculate" the name of the staples budget share market name
+        string otherBudgetName = mName + mSectorName + "-budget-fraction";
+        otherBudgetName.erase(otherBudgetName.find("Non"), 3); 
+        // look up the budget share for staples from the market for last period
+        double otherBudgetShare = SectorUtils::getTrialSupply(aRegionName, otherBudgetName, aPeriod -1);
+        // we can just get the share for non-staples from the member variable and add the shares together
+        double totalBudget = mShare[aPeriod -1] + otherBudgetShare;
+        const double TOTAL_BUDGET_THRESHOLD = 0.5; //This can be updated to whatever share of budget you want
+        if(totalBudget >= TOTAL_BUDGET_THRESHOLD) {
+            ILogger& mainLog = ILogger::getLogger( "main_log" );
+            mainLog.setLevel( ILogger::WARNING );
+            //mainLog << "Last period's share of budget spent on FoodDemand: " << totalBudget << " exceeds total income in " << aRegionName
+            //        << mName << ".  With staples share: " << otherBudgetShare << " and non-staples share: " << mShare[aPeriod -1] << endl;
+            mainLog << "Last period's share of budget spent on FoodDemand for" << aRegionName 
+                    << mName << mSectorName << "exceeds budget threshold of " << TOTAL_BUDGET_THRESHOLD
+                    << ". With staples share : " << otherBudgetShare << " and non - staples share : " << mShare[aPeriod -1] << endl;
+        
+        }
+    }
 }
 
 void FoodDemandInput::copyParam( const IInput* aInput,
