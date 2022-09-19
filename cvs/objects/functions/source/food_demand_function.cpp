@@ -165,7 +165,7 @@ double FoodDemandFunction::calcDemand( InputSet& aInput, double income, const st
     // We moved this check to food_demand_input.cpp so commenting out here for now
     /*if (alphaTotal > budget) {
         ILogger& mainLog = ILogger::getLogger( "main_log" );
-        mainLog.setLevel( ILogger::WARNING );
+        mainLog.setLevel( ILogger::DEBUG );
         mainLog << "Share of budget spent on FoodDemand: " << alphaTotal << " exceeds total income in " << aRegionName << endl;
     }*/
     
