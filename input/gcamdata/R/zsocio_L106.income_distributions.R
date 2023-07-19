@@ -1,7 +1,6 @@
 # Copyright 2019 Battelle Memorial Institute; see the LICENSE file.
 
-
-#' module_socioeconomics_L106.income_distributions
+#' module_socio_L106.income_distributions
 #'
 #' Read in raw income distribution data and transform into inputs other chunks can use
 #'
@@ -11,7 +10,8 @@
 #' @author EL August 2022
 #' @importFrom tibble tibble
 #' @importFrom dplyr filter mutate select
-module_socioeconomics_L106.income_distributions <- function(command, ...) {
+#
+module_socio_L106.income_distributions <- function(command, ...) {
   if(command == driver.DECLARE_OUTPUTS) {
     return(c("L106.income_distributions"))
   } else if(command == driver.DECLARE_INPUTS) {

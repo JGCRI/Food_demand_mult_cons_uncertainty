@@ -36,14 +36,14 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       FILE = "aglu/A_demand_technology",
       FILE = "aglu/A_fuelprefElasticity_ssp1",
       FILE = "aglu/A_diet_bias",
-	  FILE = "socioeconomics/Base_pcGDP_PPP",
-	  FILE = "aglu/A_demand_base_food_prices",
+	    FILE = "socioeconomics/Base_pcGDP_PPP",
+	    FILE = "aglu/A_demand_base_food_prices",
       "L101.CropMeat_Food_Pcal_R_C_Y",
       "L109.ag_ALL_Mt_R_C_Y",
       "L109.an_ALL_Mt_R_C_Y",
       "L110.For_ALL_bm3_R_Y",
-	  "L106.income_distributions",
-	  "L201.Pop_gSSP2")
+	    "L106.income_distributions",
+	    "L201.Pop_gSSP2")
 
 
   if(command == driver.DECLARE_INPUTS) {
