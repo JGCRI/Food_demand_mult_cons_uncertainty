@@ -5,7 +5,7 @@
 		<Value name="BatchFileName">batch_ag.xml</Value>
 		<Value name="policy-target-file">../input/policy/forcing_target_4p5.xml</Value>
 		<Value name="GHGInputFileName">../input/magicc/inputs/input_gases.emk</Value>
-		<Value write-output="1" append-scenario-name="0" name="xmldb-location">../output/database_basexdb</Value>
+		<Value write-output="1" append-scenario-name="0" name="xmldb-location">../output/database_basexdbBECCS</Value>
 		<Value write-output="1" append-scenario-name="0" name="restart">./restart/restart</Value>
 		<Value write-output="1" append-scenario-name="1" name="xmlDebugFileName">debug.xml</Value>
 		<Value write-output="1" append-scenario-name="0" name="climatFileName">gas.emk</Value>
@@ -62,7 +62,7 @@
 		<Value name = "land5">../input/gcamdata/xml/land_input_5_IRR_MGMT.xml</Value>
 		<Value name = "protected_land2">../input/gcamdata/xml/protected_land_input_2.xml</Value>
 		<Value name = "protected_land3">../input/gcamdata/xml/protected_land_input_3.xml</Value>
-		<Value name = "demand">../input/gcamdata/xml/ag_an_demand_input.xml</Value>
+		<Value name = "demand">../input/gcamdata/xml/ag_an_demand_input_multiple_consumers.xml</Value>
 		<Value name = "bio_trade">../input/gcamdata/xml/bio_trade.xml</Value>
 		<Value name = "ag_trade">../input/gcamdata/xml/ag_trade.xml</Value>
 
@@ -108,13 +108,13 @@
         <Value name = "prune_ag">../input/gcamdata/xml/prune_empty_ag.xml</Value>
 
         <!-- set up the near-term / long-term policy inputs -->
-		<Value name = "long-term-co2">../input/policy/carbon_tax_0.xml</Value>
-		<Value name = "near-term-co2">../input/policy/spa14_tax.xml</Value>
-		<Value name = "co2-link">../input/policy/2025_target_finder_phasein.xml</Value>
-		<Value name = "co2luc-link">../input/policy/global_uct_phasein_no_constraint.xml</Value>
+		<Value name = "long-term-co2">../input/policy/carbon_tax_LTG_high.xml</Value>
+        <Value name = "near-term-co2">../input/policy/carbon_tax_2p6_nearterm.xml</Value>
+        <Value name = "co2-link">../input/policy/2025_target_finder_phasein.xml</Value>
+		<Value name="link">../input/policy/global_uct_spa1.xml</Value>
 	</ScenarioComponents>
 	<Strings>
-		<Value name="scenarioName">4p5</Value>
+		<Value name="scenarioName">Reference</Value>
 		<Value name="debug-region">USA</Value>
 		<Value name="MAGICC-input-dir">../input/magicc/inputs</Value>
 		<Value name="MAGICC-output-dir">../output</Value>
@@ -125,7 +125,7 @@
 		<!-- Fixed GDP will calibrate to exogenous path -->
 		<Value name="FixedGDP-Path">1</Value>
 		<Value name="BatchMode">0</Value>
-		<Value name="find-path">1</Value>
+		<Value name="find-path">0</Value>
 		<Value name="createCostCurve">0</Value>
 		<Value name="debugChecking">0</Value>
 		<Value name="simulActive">1</Value>

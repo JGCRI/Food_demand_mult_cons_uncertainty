@@ -1,0 +1,161 @@
+"","L203.StapleBaseService.region","L203.StapleBaseService.gcam.consumer","L203.StapleBaseService.nodeInput","L203.StapleBaseService.staples.food.demand.input","L203.StapleBaseService.year","L203.StapleBaseService.base.service"
+"1","Africa_Eastern","FoodDemand","FoodDemand","FoodDemand_Staples",1975,44.1407184
+"2","Africa_Eastern","FoodDemand","FoodDemand","FoodDemand_Staples",1990,67.2717432
+"3","Africa_Eastern","FoodDemand","FoodDemand","FoodDemand_Staples",2005,105.8426215
+"4","Africa_Eastern","FoodDemand","FoodDemand","FoodDemand_Staples",2010,123.8952399
+"5","Africa_Eastern","FoodDemand","FoodDemand","FoodDemand_Staples",2015,149.0123337
+"6","Africa_Northern","FoodDemand","FoodDemand","FoodDemand_Staples",1975,54.5704606
+"7","Africa_Northern","FoodDemand","FoodDemand","FoodDemand_Staples",1990,98.0733095
+"8","Africa_Northern","FoodDemand","FoodDemand","FoodDemand_Staples",2005,128.9111414
+"9","Africa_Northern","FoodDemand","FoodDemand","FoodDemand_Staples",2010,132.9766441
+"10","Africa_Northern","FoodDemand","FoodDemand","FoodDemand_Staples",2015,138.8458403
+"11","Africa_Southern","FoodDemand","FoodDemand","FoodDemand_Staples",1975,30.3187116
+"12","Africa_Southern","FoodDemand","FoodDemand","FoodDemand_Staples",1990,45.0090432
+"13","Africa_Southern","FoodDemand","FoodDemand","FoodDemand_Staples",2005,66.4540066
+"14","Africa_Southern","FoodDemand","FoodDemand","FoodDemand_Staples",2010,75.9177603
+"15","Africa_Southern","FoodDemand","FoodDemand","FoodDemand_Staples",2015,83.3973323
+"16","Africa_Western","FoodDemand","FoodDemand","FoodDemand_Staples",1975,76.607392
+"17","Africa_Western","FoodDemand","FoodDemand","FoodDemand_Staples",1990,135.6998454
+"18","Africa_Western","FoodDemand","FoodDemand","FoodDemand_Staples",2005,211.4679333
+"19","Africa_Western","FoodDemand","FoodDemand","FoodDemand_Staples",2010,253.5248142
+"20","Africa_Western","FoodDemand","FoodDemand","FoodDemand_Staples",2015,294.1858027
+"21","Argentina","FoodDemand","FoodDemand","FoodDemand_Staples",1975,12.9603213
+"22","Argentina","FoodDemand","FoodDemand","FoodDemand_Staples",1990,15.96624
+"23","Argentina","FoodDemand","FoodDemand","FoodDemand_Staples",2005,16.5584058
+"24","Argentina","FoodDemand","FoodDemand","FoodDemand_Staples",2010,20.9620409
+"25","Argentina","FoodDemand","FoodDemand","FoodDemand_Staples",2015,19.5429581
+"26","Australia_NZ","FoodDemand","FoodDemand","FoodDemand_Staples",1975,5.8130691
+"27","Australia_NZ","FoodDemand","FoodDemand","FoodDemand_Staples",1990,6.7756538
+"28","Australia_NZ","FoodDemand","FoodDemand","FoodDemand_Staples",2005,8.8055585
+"29","Australia_NZ","FoodDemand","FoodDemand","FoodDemand_Staples",2010,8.824619
+"30","Australia_NZ","FoodDemand","FoodDemand","FoodDemand_Staples",2015,10.1289546
+"31","Brazil","FoodDemand","FoodDemand","FoodDemand_Staples",1975,50.9861076
+"32","Brazil","FoodDemand","FoodDemand","FoodDemand_Staples",1990,68.5026622
+"33","Brazil","FoodDemand","FoodDemand","FoodDemand_Staples",2005,89.6833615
+"34","Brazil","FoodDemand","FoodDemand","FoodDemand_Staples",2010,87.8100298
+"35","Brazil","FoodDemand","FoodDemand","FoodDemand_Staples",2015,85.7921569
+"36","Canada","FoodDemand","FoodDemand","FoodDemand_Staples",1975,8.4306883
+"37","Canada","FoodDemand","FoodDemand","FoodDemand_Staples",1990,10.1677895
+"38","Canada","FoodDemand","FoodDemand","FoodDemand_Staples",2005,15.4598087
+"39","Canada","FoodDemand","FoodDemand","FoodDemand_Staples",2010,15.311501
+"40","Canada","FoodDemand","FoodDemand","FoodDemand_Staples",2015,14.2369755
+"41","Central America and Caribbean","FoodDemand","FoodDemand","FoodDemand_Staples",1975,18.4841036
+"42","Central America and Caribbean","FoodDemand","FoodDemand","FoodDemand_Staples",1990,24.9090637
+"43","Central America and Caribbean","FoodDemand","FoodDemand","FoodDemand_Staples",2005,30.6859381
+"44","Central America and Caribbean","FoodDemand","FoodDemand","FoodDemand_Staples",2010,35.0232948
+"45","Central America and Caribbean","FoodDemand","FoodDemand","FoodDemand_Staples",2015,38.1216581
+"46","Central Asia","FoodDemand","FoodDemand","FoodDemand_Staples",1975,41.9727868
+"47","Central Asia","FoodDemand","FoodDemand","FoodDemand_Staples",1990,47.8705296
+"48","Central Asia","FoodDemand","FoodDemand","FoodDemand_Staples",2005,49.7128866
+"49","Central Asia","FoodDemand","FoodDemand","FoodDemand_Staples",2010,48.7909729
+"50","Central Asia","FoodDemand","FoodDemand","FoodDemand_Staples",2015,48.4328687
+"51","China","FoodDemand","FoodDemand","FoodDemand_Staples",1975,550.7600072
+"52","China","FoodDemand","FoodDemand","FoodDemand_Staples",1990,783.6105379
+"53","China","FoodDemand","FoodDemand","FoodDemand_Staples",2005,828.7626766
+"54","China","FoodDemand","FoodDemand","FoodDemand_Staples",2010,846.241719
+"55","China","FoodDemand","FoodDemand","FoodDemand_Staples",2015,886.7380482
+"56","Colombia","FoodDemand","FoodDemand","FoodDemand_Staples",1975,8.566833
+"57","Colombia","FoodDemand","FoodDemand","FoodDemand_Staples",1990,13.0218825
+"58","Colombia","FoodDemand","FoodDemand","FoodDemand_Staples",2005,17.6705269
+"59","Colombia","FoodDemand","FoodDemand","FoodDemand_Staples",2010,16.8340072
+"60","Colombia","FoodDemand","FoodDemand","FoodDemand_Staples",2015,18.2664214
+"61","EU-12","FoodDemand","FoodDemand","FoodDemand_Staples",1975,65.5009831
+"62","EU-12","FoodDemand","FoodDemand","FoodDemand_Staples",1990,60.8195834
+"63","EU-12","FoodDemand","FoodDemand","FoodDemand_Staples",2005,56.650625
+"64","EU-12","FoodDemand","FoodDemand","FoodDemand_Staples",2010,53.5428591
+"65","EU-12","FoodDemand","FoodDemand","FoodDemand_Staples",2015,50.6221043
+"66","EU-15","FoodDemand","FoodDemand","FoodDemand_Staples",1975,148.131609
+"67","EU-15","FoodDemand","FoodDemand","FoodDemand_Staples",1990,152.6100324
+"68","EU-15","FoodDemand","FoodDemand","FoodDemand_Staples",2005,169.7788635
+"69","EU-15","FoodDemand","FoodDemand","FoodDemand_Staples",2010,169.2193258
+"70","EU-15","FoodDemand","FoodDemand","FoodDemand_Staples",2015,172.2254987
+"71","Europe_Eastern","FoodDemand","FoodDemand","FoodDemand_Staples",1975,38.6181318
+"72","Europe_Eastern","FoodDemand","FoodDemand","FoodDemand_Staples",1990,39.1424952
+"73","Europe_Eastern","FoodDemand","FoodDemand","FoodDemand_Staples",2005,44.2231032
+"74","Europe_Eastern","FoodDemand","FoodDemand","FoodDemand_Staples",2010,31.5446885
+"75","Europe_Eastern","FoodDemand","FoodDemand","FoodDemand_Staples",2015,31.1230818
+"76","Europe_Non_EU","FoodDemand","FoodDemand","FoodDemand_Staples",1975,46.8621856
+"77","Europe_Non_EU","FoodDemand","FoodDemand","FoodDemand_Staples",1990,63.4177897
+"78","Europe_Non_EU","FoodDemand","FoodDemand","FoodDemand_Staples",2005,64.8340012
+"79","Europe_Non_EU","FoodDemand","FoodDemand","FoodDemand_Staples",2010,60.3785428
+"80","Europe_Non_EU","FoodDemand","FoodDemand","FoodDemand_Staples",2015,59.2371315
+"81","European Free Trade Association","FoodDemand","FoodDemand","FoodDemand_Staples",1975,3.8804033
+"82","European Free Trade Association","FoodDemand","FoodDemand","FoodDemand_Staples",1990,4.4647061
+"83","European Free Trade Association","FoodDemand","FoodDemand","FoodDemand_Staples",2005,5.1328611
+"84","European Free Trade Association","FoodDemand","FoodDemand","FoodDemand_Staples",2010,4.9205744
+"85","European Free Trade Association","FoodDemand","FoodDemand","FoodDemand_Staples",2015,5.0074258
+"86","India","FoodDemand","FoodDemand","FoodDemand_Staples",1975,341.26898
+"87","India","FoodDemand","FoodDemand","FoodDemand_Staples",1990,540.1570925
+"88","India","FoodDemand","FoodDemand","FoodDemand_Staples",2005,653.0945806
+"89","India","FoodDemand","FoodDemand","FoodDemand_Staples",2010,674.3601776
+"90","India","FoodDemand","FoodDemand","FoodDemand_Staples",2015,687.1941321
+"91","Indonesia","FoodDemand","FoodDemand","FoodDemand_Staples",1975,81.6676779
+"92","Indonesia","FoodDemand","FoodDemand","FoodDemand_Staples",1990,129.6895408
+"93","Indonesia","FoodDemand","FoodDemand","FoodDemand_Staples",2005,157.4950034
+"94","Indonesia","FoodDemand","FoodDemand","FoodDemand_Staples",2010,169.6667481
+"95","Indonesia","FoodDemand","FoodDemand","FoodDemand_Staples",2015,184.3531159
+"96","Japan","FoodDemand","FoodDemand","FoodDemand_Staples",1975,64.3053586
+"97","Japan","FoodDemand","FoodDemand","FoodDemand_Staples",1990,64.5407926
+"98","Japan","FoodDemand","FoodDemand","FoodDemand_Staples",2005,59.0875738
+"99","Japan","FoodDemand","FoodDemand","FoodDemand_Staples",2010,55.4832621
+"100","Japan","FoodDemand","FoodDemand","FoodDemand_Staples",2015,55.1116504
+"101","Mexico","FoodDemand","FoodDemand","FoodDemand_Staples",1975,34.1186752
+"102","Mexico","FoodDemand","FoodDemand","FoodDemand_Staples",1990,51.2315311
+"103","Mexico","FoodDemand","FoodDemand","FoodDemand_Staples",2005,62.8529898
+"104","Mexico","FoodDemand","FoodDemand","FoodDemand_Staples",2010,60.934102
+"105","Mexico","FoodDemand","FoodDemand","FoodDemand_Staples",2015,63.0754915
+"106","Middle East","FoodDemand","FoodDemand","FoodDemand_Staples",1975,43.4032717
+"107","Middle East","FoodDemand","FoodDemand","FoodDemand_Staples",1990,90.0750718
+"108","Middle East","FoodDemand","FoodDemand","FoodDemand_Staples",2005,125.246554
+"109","Middle East","FoodDemand","FoodDemand","FoodDemand_Staples",2010,121.0981159
+"110","Middle East","FoodDemand","FoodDemand","FoodDemand_Staples",2015,129.4804731
+"111","Pakistan","FoodDemand","FoodDemand","FoodDemand_Staples",1975,39.6164302
+"112","Pakistan","FoodDemand","FoodDemand","FoodDemand_Staples",1990,58.6552897
+"113","Pakistan","FoodDemand","FoodDemand","FoodDemand_Staples",2005,80.2700944
+"114","Pakistan","FoodDemand","FoodDemand","FoodDemand_Staples",2010,85.8052237
+"115","Pakistan","FoodDemand","FoodDemand","FoodDemand_Staples",2015,90.700029
+"116","Russia","FoodDemand","FoodDemand","FoodDemand_Staples",1975,85.1447624
+"117","Russia","FoodDemand","FoodDemand","FoodDemand_Staples",1990,89.7158794
+"118","Russia","FoodDemand","FoodDemand","FoodDemand_Staples",2005,81.9389772
+"119","Russia","FoodDemand","FoodDemand","FoodDemand_Staples",2010,79.6701905
+"120","Russia","FoodDemand","FoodDemand","FoodDemand_Staples",2015,79.2438605
+"121","South Africa","FoodDemand","FoodDemand","FoodDemand_Staples",1975,17.478908
+"122","South Africa","FoodDemand","FoodDemand","FoodDemand_Staples",1990,25.1028981
+"123","South Africa","FoodDemand","FoodDemand","FoodDemand_Staples",2005,33.8505753
+"124","South Africa","FoodDemand","FoodDemand","FoodDemand_Staples",2010,32.2864858
+"125","South Africa","FoodDemand","FoodDemand","FoodDemand_Staples",2015,32.8020909
+"126","South America_Northern","FoodDemand","FoodDemand","FoodDemand_Staples",1975,5.4441796
+"127","South America_Northern","FoodDemand","FoodDemand","FoodDemand_Staples",1990,9.8581019
+"128","South America_Northern","FoodDemand","FoodDemand","FoodDemand_Staples",2005,13.0666452
+"129","South America_Northern","FoodDemand","FoodDemand","FoodDemand_Staples",2010,15.5016631
+"130","South America_Northern","FoodDemand","FoodDemand","FoodDemand_Staples",2015,12.6660956
+"131","South America_Southern","FoodDemand","FoodDemand","FoodDemand_Staples",1975,18.6071942
+"132","South America_Southern","FoodDemand","FoodDemand","FoodDemand_Staples",1990,26.2893212
+"133","South America_Southern","FoodDemand","FoodDemand","FoodDemand_Staples",2005,35.9843814
+"134","South America_Southern","FoodDemand","FoodDemand","FoodDemand_Staples",2010,37.2285276
+"135","South America_Southern","FoodDemand","FoodDemand","FoodDemand_Staples",2015,40.9168453
+"136","South Asia","FoodDemand","FoodDemand","FoodDemand_Staples",1975,76.3659931
+"137","South Asia","FoodDemand","FoodDemand","FoodDemand_Staples",1990,108.1122951
+"138","South Asia","FoodDemand","FoodDemand","FoodDemand_Staples",2005,158.3613407
+"139","South Asia","FoodDemand","FoodDemand","FoodDemand_Staples",2010,159.4727515
+"140","South Asia","FoodDemand","FoodDemand","FoodDemand_Staples",2015,163.8117767
+"141","South Korea","FoodDemand","FoodDemand","FoodDemand_Staples",1975,32.1264683
+"142","South Korea","FoodDemand","FoodDemand","FoodDemand_Staples",1990,29.2763826
+"143","South Korea","FoodDemand","FoodDemand","FoodDemand_Staples",2005,27.0415096
+"144","South Korea","FoodDemand","FoodDemand","FoodDemand_Staples",2010,27.6293596
+"145","South Korea","FoodDemand","FoodDemand","FoodDemand_Staples",2015,25.2730449
+"146","Southeast Asia","FoodDemand","FoodDemand","FoodDemand_Staples",1975,118.3378983
+"147","Southeast Asia","FoodDemand","FoodDemand","FoodDemand_Staples",1990,152.6009964
+"148","Southeast Asia","FoodDemand","FoodDemand","FoodDemand_Staples",2005,215.9137904
+"149","Southeast Asia","FoodDemand","FoodDemand","FoodDemand_Staples",2010,218.6772151
+"150","Southeast Asia","FoodDemand","FoodDemand","FoodDemand_Staples",2015,225.2957365
+"151","Taiwan","FoodDemand","FoodDemand","FoodDemand_Staples",1975,10.4195717
+"152","Taiwan","FoodDemand","FoodDemand","FoodDemand_Staples",1990,8.220999
+"153","Taiwan","FoodDemand","FoodDemand","FoodDemand_Staples",2005,8.978316
+"154","Taiwan","FoodDemand","FoodDemand","FoodDemand_Staples",2010,8.6024939
+"155","Taiwan","FoodDemand","FoodDemand","FoodDemand_Staples",2015,8.5180387
+"156","USA","FoodDemand","FoodDemand","FoodDemand_Staples",1975,75.1563641
+"157","USA","FoodDemand","FoodDemand","FoodDemand_Staples",1990,111.2594723
+"158","USA","FoodDemand","FoodDemand","FoodDemand_Staples",2005,133.6402421
+"159","USA","FoodDemand","FoodDemand","FoodDemand_Staples",2010,126.5301904
+"160","USA","FoodDemand","FoodDemand","FoodDemand_Staples",2015,124.9759772

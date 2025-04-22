@@ -91,17 +91,22 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       NetExp_Mt <- fixedOutput <- Cons_bm3 <- efficiency <- energy.final.demand <-
       gcam.consumer <- nodeInput <- demand_type <- staples.food.demand.input <-
       non.staples.food.demand.input <- subsector <- NULL   # silence package check notes
-
+    #AAAA
     # Load required inputs ----
-
+    
+    #Making some updates
+    temp_val <- 0.1
     lapply(MODULE_INPUTS, function(d){
       # get name as the char after last /
       nm <- tail(strsplit(d, "/")[[1]], n = 1)
       # get data and assign
       assign(nm, get_data(all_data, d, strip_attributes = T),
              envir = parent.env(environment()))  })
-
-
+    
+   scenario <- "HD_Qtot"
+    FE_params <- read.csv("staples_FE.csv")%>%
+                 filter(measure== scenario)
+    #write.csv(FE_params,"test_params.csv")
     # Get mass-calories conversion rates for food commodities----
     # Note that food consumption in Mt in L109 files should be finalized
     # So the conversion rates are finalized here (after any potential earlier food adjustments)
@@ -355,6 +360,8 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
 
     # Get income and population shares for single consumer
     L203.SubregionalShares <- A_demand_food_staples %>%
+      filter(measure==scenario)%>%
+      select(-measure)%>%
       select(gcam.consumer, nodeInput) %>%
       mutate(pop.year.fillout = min(MODEL_BASE_YEARS),
              inc.year.fillout = min(MODEL_BASE_YEARS),
@@ -371,21 +378,32 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       filter(!region %in% aglu.NO_AGLU_REGIONS) %>%
       select(LEVEL2_DATA_NAMES[["SubregionalShares_Year"]])
 
+    print(head(L203.SubregionalShares_ConsumerGroups))
+
     # ONE CONSUMER: Demand function and parameters
     L203.DemandFunction_food <- A_demand_food_staples %>%
+      filter(measure==scenario)%>%
+      select(-measure)%>%
       write_to_all_regions(LEVEL2_DATA_NAMES[["DemandFunction_food"]], GCAM_region_names = GCAM_region_names) %>%
       filter(!region %in% aglu.NO_AGLU_REGIONS)
 
     L203.DemandStapleParams <- A_demand_food_staples %>%
+      filter(measure==scenario)%>%
+      select(-measure)%>%
       write_to_all_regions(LEVEL2_DATA_NAMES[["DemandStapleParams"]], GCAM_region_names = GCAM_region_names) %>%
+      left_join(FE_params) %>%
       filter(!region %in% aglu.NO_AGLU_REGIONS)
 
     L203.DemandNonStapleParams <- A_demand_food_nonstaples %>%
+      filter(measure==scenario)%>%
+      select(-measure)%>%
       write_to_all_regions(LEVEL2_DATA_NAMES[["DemandNonStapleParams"]], GCAM_region_names = GCAM_region_names) %>%
       filter(!region %in% aglu.NO_AGLU_REGIONS)
 
     # MULTIPLE CONSUMERS: Demand function and parameters
     # Expand from single consumer
+
+    #print(head(L203.SubregionalShares_ConsumerGroups))
     L203.DemandFunction_food %>%
       select(-gcam.consumer) %>%
       merge(unique(L203.SubregionalShares_ConsumerGroups$gcam.consumer)) %>%
@@ -449,7 +467,7 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
       left_join(L106.income_distributions, by = c("year", "region")) %>%
       select(-subregional.income.share) %>%
       # Convert from thous people to total people to later calculate per capita results
-      mutate(totalPop = totalPop * 1000 * subregional.population.share) -> population_income_groups
+      mutate(totalPop = totalPop  * subregional.population.share) -> population_income_groups
 
     # per capita GDP PPP (from GCAM output)
     # TODO: Get this from gcamdata object?
@@ -469,7 +487,13 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
              Y = pc_GDP_groups) -> ambrosia_data
 
     # Food demand parameters to use in ambrosia (tested and matches GCAM output)
-    param_vector <- c(1.123,1.2972,-6.7e-05,-0.003825,-0.0805,0.44300028,0.067210179,16,5.068,100,20.1)
+  
+ params <- read.csv("9_params.csv") %>% 
+          filter(measure==scenario) %>% 
+          gather(param,value,"As":"pnscl")
+
+    param_vector <- c(params$value)
+    #param_vector <- c(1.123,1.2972,-6.7e-05,-0.003825,-0.0805,0.44300028,0.067210179,16,5.068,100,20.1)
 
     # Calculate regional food demand, rename and add back year, income, and region
     # Can't use dplyr join since ambrosia doesn't output year or region, but rows will be in same order
@@ -480,8 +504,10 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
     library(ambrosia)
 
     # Run ambrosia function
-    ambrosia_results <- food.dmnd(ambrosia_data$Ps, ambrosia_data$Pn, ambrosia_data$Y, params = vec2param(param_vector))
-
+    
+    ambrosia_data %>% left_join(FE_params)->ambrosia_data
+    ambrosia_results <- food.dmnd(ambrosia_data$Ps, ambrosia_data$Pn, ambrosia_data$Y, params = vec2param(param_vector),staples_FE= ambrosia_data$staples_FE)
+    #write.csv(ambrosia_data, "ambrosia_data2.csv")
     # Process results
     ambrosia_results %>%
       rename(FoodDemand_Staples = Qs,
@@ -491,14 +517,16 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
              region = ambrosia_data$region,
              gcam.consumer = ambrosia_data$gcam.consumer,
              model = "Ambrosia") %>%
+      #left_join(FE_params) %>%
       select(-Qm, -alpha.s, -alpha.n, -alpha.m) %>%
       mutate(Units = "Kcal/per/day") %>%
       tidyr::gather(input, value, -c("year", "pc_GDP", "gcam.consumer", "region", "model", "Units")) %>%
       left_join(population_income_groups, by = c("region", "year", "gcam.consumer")) %>%
-      mutate(value = value * totalPop / 1e9 * 365,
+      mutate(value = value * totalPop * 1e-9 * 365*1000,
              Units = "Pcal/year",
              gcam.consumer = gsub("d", "FoodDemand_Group", gcam.consumer)) -> food_demand_am
 
+    write.csv(food_demand_am,"food_demand_am_updated2.csv")
     # Calculating regional bias: Difference between ambrosia calculated value and actual food demand in base years
     # Bias gets evenly distributed across income groups
     # Bias in final base year gets carried forward to all future years
@@ -527,6 +555,9 @@ module_aglu_L203.ag_an_demand_input <- function(command, ...) {
     regional_bias %>%
       left_join(population_income_groups, by = c("region", "year")) %>%
       mutate(partial_difference = partial_difference/365/totalPop*1e9 )-> pc_regional_bias
+
+    #write the bias
+    write.csv(pc_regional_bias, "pc_regional_bias.csv")
 
     # Combine regional bias back with ambrosia output to get total output to match GCAM's in the base years
     # Add income and pop shares
